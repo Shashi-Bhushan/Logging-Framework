@@ -1,5 +1,6 @@
-package org.slf4j.impl;
+package com.shashi.logging;
 
+import com.shashi.logging.constant.LOG_LEVEL;
 import com.shashi.logging.exception.LogLevelNotSupportedException;
 import org.slf4j.Logger;
 import org.slf4j.Marker;
@@ -9,8 +10,8 @@ import java.io.PrintStream;
 /**
  * This class is the implementation class for slf4j's {@link Logger} class.
  * Along with the implementation of the methods such as {@link #warn(Marker, String)}, {@link #error(Marker, String)} etc,
- * it also Provides options for Setting and getting different {@link org.slf4j.impl.LoggerImpl.LOG_LEVEL}, setting
- * {@code out} viz output to print to log to, methods to check if different {@link org.slf4j.impl.LoggerImpl.LOG_LEVEL} has
+ * it also Provides options for Setting and getting different {@link LOG_LEVEL}, setting
+ * {@code out} viz output to print to log to, methods to check if different {@link LOG_LEVEL} has
  * been enabled for current settings or not.
  *
  * @author Shashi Bhushan
@@ -27,8 +28,8 @@ public class LoggerImpl implements Logger {
 
     /**
      * Public Constructor of the Class. Provides options to set {@code clazz}, default {@code log_level} of
-     * {@link org.slf4j.impl.LoggerImpl.LOG_LEVEL#DEBUG} and {@code out} prints to {@link System#out} i.e. these are the
-     * default values for the {@link org.slf4j.impl.LoggerImpl.LOG_LEVEL} and {@link PrintStream} respectively.
+     * {@link LOG_LEVEL#DEBUG} and {@code out} prints to {@link System#out} i.e. these are the
+     * default values for the {@link LOG_LEVEL} and {@link PrintStream} respectively.
      *
      * @param clazz
      *      The class for which this {@link Logger} object has been created
@@ -122,7 +123,7 @@ public class LoggerImpl implements Logger {
     }
 
     /**
-     * Sets the current {@link com.shashi.logging.Loggable.LOG_LEVEL} to the Specified {@code currentLogLevel}
+     * Sets the current {@link LOG_LEVEL} to the Specified {@code currentLogLevel}
      */
     public void setCurrentLogLevel(LOG_LEVEL currentLogLevel){
         this.currentLogLevel = currentLogLevel;
@@ -326,40 +327,16 @@ public class LoggerImpl implements Logger {
     }
 
     /**
-     * Enumeration for different log levels. Supports Info, Debug, Warn and Error Log Levels.
-     * Internally, each {@link org.slf4j.impl.LoggerImpl.LOG_LEVEL} is represented by a integer, Starting with 1.
-     * Reason for this is to facilitate comparison between different {@link org.slf4j.impl.LoggerImpl.LOG_LEVEL}s, and provide
-     * a better implementation for Log Level's getter methods such as {@link #isDebugEnabled()} etc.
-     * Notice the snake casing in naming
-     */
-    public enum LOG_LEVEL{
-        INFO(1),
-        DEBUG(2),
-        WARN(3),
-        ERROR(4);
-
-        private final int logLevel;
-
-        LOG_LEVEL(int logLevel){
-            this.logLevel = logLevel;
-        }
-
-        public int getLogLevel(){
-            return this.logLevel;
-        }
-    }
-
-    /**
      * Internal Implementation of Logging for different Log Levels. Takes the argument to log, along with the log level
      * for which to log.
      *
      * @param message
      *      Message to log
      * @param logLevel
-     *      {@link org.slf4j.impl.LoggerImpl.LOG_LEVEL}, for which the message should be logged
+     *      {@link LOG_LEVEL}, for which the message should be logged
      *
      * @throws LogLevelNotSupportedException
-     *      when the invalid {@link org.slf4j.impl.LoggerImpl.LOG_LEVEL} has been passed.
+     *      when the invalid {@link LOG_LEVEL} has been passed.
      */
     private void printMessageInternal(String message, LOG_LEVEL logLevel) throws LogLevelNotSupportedException {
         if(this.currentLogLevel.getLogLevel() >= logLevel.getLogLevel()){

@@ -1,25 +1,27 @@
-package org.slf4j.impl;
+package com.shashi.logging;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-import com.shashi.logging.Loggable;
 import org.slf4j.ILoggerFactory;
 import org.slf4j.Logger;
 
 /**
  * This class is a custom {@link org.slf4j.ILoggerFactory} implementation for slf4j.
+ *
  * Provides a {@code loggerMap}, which holds name of the {@link Class} to initialize the {@link Logger} for and actual
- * {@link Logger} object in a key value pair. Also, provides a {@link #getLogger(String)} method to return the {@code Logger}
- * object if it already exists or create one and add this to {@code loggerMap} along with returning it back to the caller.
+ * {@link Logger} object in a key value pair.
+ * Also, provides a {@link #getLogger(String)} method to return the {@code Logger} object.
+ * If the object already exists, it will be fetched from {@code loggerMap}. If there is no {@link Logger} object for the
+ * class, it will be created and added to {@code loggerMap} along with returning it.
  *
  * @author Shashi Bhushan
  *         Created on 1/3/16.
  *         For Logging-Framework
  */
-public class LoggingLoggerFactory implements ILoggerFactory {
+public class LoggerFactoryImpl implements ILoggerFactory {
 
-    public LoggingLoggerFactory() {
+    public LoggerFactoryImpl() {
     }
 
     /**
@@ -31,7 +33,7 @@ public class LoggingLoggerFactory implements ILoggerFactory {
 
     /**
      * Map to hold Logger objects as a Key value pair.
-     * the key is the class for which the {@link Loggable} object has been spawned and value is the actual {@link Loggable}
+     * the key is the class for which the {@link Logger} object has been spawned and value is the actual {@link Logger}
      * object.
      * Using a ConcurrentHashMap here bacause of two reasons,
      * - Reads can happen very fast while write is done with a lock.
@@ -41,6 +43,8 @@ public class LoggingLoggerFactory implements ILoggerFactory {
     private static final Map<String, Logger> loggerMap = new ConcurrentHashMap<String, Logger>();
 
     /**
+     * @see {@link ILoggerFactory#getLogger(String)}
+     *
      * This method returns the {@link Logger} instance for a particular class.
      * but first, it should check if the {@link Logger} object already exists for that class
      * @param clazz

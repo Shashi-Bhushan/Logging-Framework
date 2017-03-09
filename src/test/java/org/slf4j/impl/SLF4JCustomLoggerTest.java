@@ -1,6 +1,7 @@
 package org.slf4j.impl;
 
-import com.shashi.logging.Loggable;
+import com.shashi.logging.LoggerImpl;
+import com.shashi.logging.constant.LOG_LEVEL;
 import com.shashi.logging.exception.LogLevelNotSupportedException;
 import org.junit.Test;
 import org.slf4j.Logger;
@@ -51,15 +52,15 @@ public class SLF4JCustomLoggerTest {
     public void setLogLevel_ShouldBeSame(){
         Logger loggable = LoggerFactory.getLogger(this.getClass());
 
-        ((LoggerImpl)loggable).setCurrentLogLevel(LoggerImpl.LOG_LEVEL.ERROR);
-        assertTrue(((LoggerImpl)loggable).getCurrentLogLevel() == LoggerImpl.LOG_LEVEL.ERROR);
+        ((LoggerImpl)loggable).setCurrentLogLevel(LOG_LEVEL.ERROR);
+        assertTrue(((LoggerImpl)loggable).getCurrentLogLevel() == LOG_LEVEL.ERROR);
     }
 
     @Test
     public void printErrorLog() {
         Logger loggable = LoggerFactory.getLogger(this.getClass());
 
-        ((LoggerImpl)loggable).setCurrentLogLevel(LoggerImpl.LOG_LEVEL.ERROR);
+        ((LoggerImpl)loggable).setCurrentLogLevel(LOG_LEVEL.ERROR);
 
         loggable.error("Test Message");
     }
@@ -68,7 +69,7 @@ public class SLF4JCustomLoggerTest {
     public void printRightLog() {
         Logger loggable = LoggerFactory.getLogger(this.getClass());
 
-        ((LoggerImpl)loggable).setCurrentLogLevel(LoggerImpl.LOG_LEVEL.WARN);
+        ((LoggerImpl)loggable).setCurrentLogLevel(LOG_LEVEL.WARN);
 
         loggable.warn("Test Message");
     }
@@ -77,7 +78,7 @@ public class SLF4JCustomLoggerTest {
     public void printWrongLog() {
         Logger loggable = LoggerFactory.getLogger(this.getClass());
 
-        ((LoggerImpl)loggable).setCurrentLogLevel(LoggerImpl.LOG_LEVEL.WARN);
+        ((LoggerImpl)loggable).setCurrentLogLevel(LOG_LEVEL.WARN);
 
         loggable.error("Test Message");
     }
@@ -92,7 +93,7 @@ public class SLF4JCustomLoggerTest {
 
         Logger loggable = LoggerFactory.getLogger(this.getClass());
 
-        ((LoggerImpl)loggable).setCurrentLogLevel(LoggerImpl.LOG_LEVEL.ERROR);
+        ((LoggerImpl)loggable).setCurrentLogLevel(LOG_LEVEL.ERROR);
 
         ((LoggerImpl)loggable).setOutput(new PrintStream(new FileOutputStream(filePath)));
 
