@@ -51,16 +51,13 @@ public class LoggerImpl implements Logger {
         return String.format("%s[%s.class]", this.getClass().getName(), clazz);
     }
 
-    /**
-     * Does not support Trace operations
-     * @return
-     */
-    public boolean isTraceEnabled() {
-        return false;
+    public void setOutput(PrintStream out){
+        if(out != null)
+            this.out = out;
     }
 
-    public void trace(String s) {
-
+    public PrintStream getOutput(){
+        return this.out;
     }
 
     public void trace(String s, Object o) {
@@ -77,10 +74,6 @@ public class LoggerImpl implements Logger {
 
     public void trace(String s, Throwable throwable) {
 
-    }
-
-    public boolean isTraceEnabled(Marker marker) {
-        return false;
     }
 
     public void trace(Marker marker, String s) {
@@ -103,45 +96,6 @@ public class LoggerImpl implements Logger {
 
     }
 
-    /**
-     * Checks if the {@code currentLogLevel} is greater than or equals to Debug's {@code currentLogLevel}.
-     * @return
-     *      true if the {@code currentLogLevel} is greater than or equal to {@link com.shashi.logging.Loggable.LOG_LEVEL}'s Debug
-     *      log level otherwise false
-     */
-    public boolean isDebugEnabled(){
-        return (this.currentLogLevel.getLogLevel() >= LOG_LEVEL.DEBUG.getLogLevel()) ? true : false;
-    }
-
-    /**
-     * Get the current {@code currentLogLevel}
-     * @return
-     *      the current {@code currentLogLevel}
-     */
-    public LOG_LEVEL getCurrentLogLevel(){
-        return this.currentLogLevel;
-    }
-
-    /**
-     * Sets the current {@link LOG_LEVEL} to the Specified {@code currentLogLevel}
-     */
-    public void setCurrentLogLevel(LOG_LEVEL currentLogLevel){
-        this.currentLogLevel = currentLogLevel;
-    }
-
-    public void setOutput(PrintStream out){
-        if(out != null)
-            this.out = out;
-    }
-
-    public PrintStream getOutput(){
-        return this.out;
-    }
-
-    public void info(String message) throws LogLevelNotSupportedException {
-        printMessageInternal(message, LOG_LEVEL.INFO);
-    }
-
     public void info(String s, Object o) {
 
     }
@@ -156,10 +110,6 @@ public class LoggerImpl implements Logger {
 
     public void info(String s, Throwable throwable) {
 
-    }
-
-    public boolean isInfoEnabled(Marker marker) {
-        return (this.currentLogLevel.getLogLevel() >= LOG_LEVEL.INFO.getLogLevel()) ? true : false;
     }
 
     public void info(Marker marker, String s) {
@@ -182,14 +132,6 @@ public class LoggerImpl implements Logger {
 
     }
 
-    public boolean isWarnEnabled() {
-        return (this.currentLogLevel.getLogLevel() >= LOG_LEVEL.WARN.getLogLevel()) ? true : false;
-    }
-
-    public void debug(String message) throws LogLevelNotSupportedException {
-        printMessageInternal(message, LOG_LEVEL.DEBUG);
-    }
-
     public void debug(String s, Object o) {
 
     }
@@ -204,10 +146,6 @@ public class LoggerImpl implements Logger {
 
     public void debug(String s, Throwable throwable) {
 
-    }
-
-    public boolean isDebugEnabled(Marker marker) {
-        return this.isDebugEnabled();
     }
 
     public void debug(Marker marker, String s) {
@@ -230,14 +168,6 @@ public class LoggerImpl implements Logger {
 
     }
 
-    public boolean isInfoEnabled() {
-        return (this.currentLogLevel.getLogLevel() >= LOG_LEVEL.INFO.getLogLevel()) ? true : false;
-    }
-
-    public void warn(String message) throws LogLevelNotSupportedException {
-        printMessageInternal(message, LOG_LEVEL.WARN);
-    }
-
     public void warn(String s, Object o) {
 
     }
@@ -252,10 +182,6 @@ public class LoggerImpl implements Logger {
 
     public void warn(String s, Throwable throwable) {
 
-    }
-
-    public boolean isWarnEnabled(Marker marker) {
-        return (this.currentLogLevel.getLogLevel() >= LOG_LEVEL.WARN.getLogLevel()) ? true : false;
     }
 
     public void warn(Marker marker, String s) {
@@ -278,14 +204,6 @@ public class LoggerImpl implements Logger {
 
     }
 
-    public boolean isErrorEnabled() {
-        return (this.currentLogLevel.getLogLevel() >= LOG_LEVEL.ERROR.getLogLevel()) ? true : false;
-    }
-
-    public void error(String message) throws LogLevelNotSupportedException {
-        printMessageInternal(message, LOG_LEVEL.ERROR);
-    }
-
     public void error(String s, Object o) {
 
     }
@@ -300,10 +218,6 @@ public class LoggerImpl implements Logger {
 
     public void error(String s, Throwable throwable) {
 
-    }
-
-    public boolean isErrorEnabled(Marker marker) {
-        return this.isErrorEnabled();
     }
 
     public void error(Marker marker, String s) {
@@ -324,6 +238,88 @@ public class LoggerImpl implements Logger {
 
     public void error(Marker marker, String s, Throwable throwable) {
 
+    }
+
+    public void trace(String message) throws LogLevelNotSupportedException {
+        printMessageInternal(message, LOG_LEVEL.TRACE);
+    }
+
+    public void info(String message) throws LogLevelNotSupportedException {
+        printMessageInternal(message, LOG_LEVEL.INFO);
+    }
+
+    public void debug(String message) throws LogLevelNotSupportedException {
+        printMessageInternal(message, LOG_LEVEL.DEBUG);
+    }
+
+    public void warn(String message) throws LogLevelNotSupportedException {
+        printMessageInternal(message, LOG_LEVEL.WARN);
+    }
+
+    public void error(String message) throws LogLevelNotSupportedException {
+        printMessageInternal(message, LOG_LEVEL.ERROR);
+    }
+
+    /**
+     * Checks if the {@code currentLogLevel} is greater than or equals to Trace's {@code currentLogLevel}.
+     * @return
+     *      true if the {@code currentLogLevel} is greater than or equal to {@link com.shashi.logging.constant.LOG_LEVEL}'s Trace
+     *      log level otherwise false
+     */
+    public boolean isTraceEnabled() {
+        return (this.currentLogLevel.getLogLevel() >= LOG_LEVEL.TRACE.getLogLevel()) ? true : false;
+    }
+
+    public boolean isTraceEnabled(Marker marker) {
+        return this.isTraceEnabled();
+    }
+
+    public boolean isInfoEnabled() {
+        return (this.currentLogLevel.getLogLevel() >= LOG_LEVEL.INFO.getLogLevel()) ? true : false;
+    }
+
+    public boolean isInfoEnabled(Marker marker) {
+        return this.isInfoEnabled();
+    }
+
+    public boolean isDebugEnabled(){
+        return (this.currentLogLevel.getLogLevel() >= LOG_LEVEL.DEBUG.getLogLevel()) ? true : false;
+    }
+
+    public boolean isDebugEnabled(Marker marker) {
+        return this.isDebugEnabled();
+    }
+
+    public boolean isWarnEnabled() {
+        return (this.currentLogLevel.getLogLevel() >= LOG_LEVEL.WARN.getLogLevel()) ? true : false;
+    }
+
+    public boolean isWarnEnabled(Marker marker) {
+        return this.isWarnEnabled();
+    }
+
+    public boolean isErrorEnabled() {
+        return (this.currentLogLevel.getLogLevel() >= LOG_LEVEL.ERROR.getLogLevel()) ? true : false;
+    }
+
+    public boolean isErrorEnabled(Marker marker) {
+        return this.isErrorEnabled();
+    }
+
+    /**
+     * Get the current {@code currentLogLevel}
+     * @return
+     *      the current {@code currentLogLevel}
+     */
+    public LOG_LEVEL getCurrentLogLevel(){
+        return this.currentLogLevel;
+    }
+
+    /**
+     * Sets the current {@link LOG_LEVEL} to the Specified {@code currentLogLevel}
+     */
+    public void setCurrentLogLevel(LOG_LEVEL currentLogLevel){
+        this.currentLogLevel = currentLogLevel;
     }
 
     /**

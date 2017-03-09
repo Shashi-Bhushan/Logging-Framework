@@ -1,9 +1,13 @@
 package org.slf4j.impl;
 
 /**
+ * The binding of {@link org.slf4j.LoggerFactory} class with an actual instance of {@link org.slf4j.ILoggerFactory} is
+ * performed using information returned by this class.
+ *
  * This class is a custom implementation of {@link org.slf4j.spi.LoggerFactoryBinder} of slf4j API.
  * It holds a Singleton object of itself, which can be accessed via a static method {@link #getSingleton()}.
- * Also, holds a custom implementation of {@link org.slf4j.ILoggerFactory}, which spawns {@link com.shashi.logging.LoggerImpl}
+ *
+ * Also, holds a custom implementation of {@link org.slf4j.ILoggerFactory}, which returns {@link com.shashi.logging.LoggerFactoryImpl}
  * object when {@link #getLoggerFactory()} is called.
  *
  * @author Shashi Bhushan
