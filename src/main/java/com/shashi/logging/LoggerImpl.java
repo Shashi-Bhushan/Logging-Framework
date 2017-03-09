@@ -40,6 +40,18 @@ public class LoggerImpl implements Logger {
         this.out = System.out;
     }
 
+    LoggerImpl(String clazz, LOG_LEVEL logLevel)  {
+        this.clazz = clazz;
+        this.currentLogLevel = logLevel;
+        this.out = System.out;
+    }
+
+    LoggerImpl(String clazz, LOG_LEVEL logLevel, PrintStream out)  {
+        this.clazz = clazz;
+        this.currentLogLevel = logLevel;
+        this.out = out;
+    }
+
     /**
      * Returns the name of the Class along with the {@link Class}, for which this is the Logger.
      * The format for this is LoggerImpl[Sample.class]

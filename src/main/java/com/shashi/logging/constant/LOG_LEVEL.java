@@ -4,9 +4,9 @@ import com.shashi.logging.LoggerImpl;
 
 /**
  * Enumeration for different log levels. Supports Info, Debug, Warn and Error Log Levels.
- * Internally, each {@link LoggerImpl.LOG_LEVEL} is represented by a integer, Starting with 1.
- * Reason for this is to facilitate comparison between different {@link LoggerImpl.LOG_LEVEL}s, and provide
- * a better implementation for Log Level's getter methods such as {@link #isDebugEnabled()} etc.
+ * Internally, each {@link LOG_LEVEL} is represented by a integer, Starting with 1.
+ * Reason for this is to facilitate comparison between different {@link LOG_LEVEL}s, and provide
+ * a better implementation for Log Level's getter methods such as {@link LoggerImpl#isDebugEnabled()} etc.
  * Notice the snake casing in naming
  */
 public enum LOG_LEVEL{

@@ -36,7 +36,7 @@ public class LoggerFactoryImpl implements ILoggerFactory {
      * the key is the class for which the {@link Logger} object has been spawned and value is the actual {@link Logger}
      * object.
      * Using a ConcurrentHashMap here bacause of two reasons,
-     * - Reads can happen very fast while write is done with a lock.
+     * - Reads can happen very fast while write is done with a lock (Thread Safe internally).
      * - ConcurrentHashMap doesn't throw a {@link java.util.ConcurrentModificationException} if one thread tries to modify
      *   the Map, while another thread is iterating over it.
      */
@@ -47,6 +47,9 @@ public class LoggerFactoryImpl implements ILoggerFactory {
      *
      * This method returns the {@link Logger} instance for a particular class.
      * but first, it should check if the {@link Logger} object already exists for that class
+     *
+     * If needs to add new logger in class, first get a Write lock on the object
+     *
      * @param clazz
      *      {@link Class} name for which to initialize the Logger
      * @return
@@ -59,7 +62,10 @@ public class LoggerFactoryImpl implements ILoggerFactory {
             return logger;
         }else{
             logger = new LoggerImpl(clazz);
-            loggerMap.put(clazz, logger);
+
+            synchronized (this.loggerMap){
+                loggerMap.put(clazz, logger);
+            }
 
             return logger;
         }
