@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 
 import java.io.*;
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 /**
@@ -17,13 +18,6 @@ import static org.junit.Assert.assertTrue;
  *         For Logging-Framework
  */
 public class SLF4JCustomLoggerTest {
-
-    @Test
-    public void initiateLogger(){
-        Logger logger = LoggerFactory.getLogger(this.getClass());
-
-        logger.info("Class is " + logger.getClass());
-    }
 
     @Test
     public void initializeLogSuccessfully(){
@@ -46,6 +40,7 @@ public class SLF4JCustomLoggerTest {
         Logger loggable = LoggerFactory.getLogger(this.getClass());
 
         assertTrue(loggable.isDebugEnabled());
+        assertFalse(loggable.isWarnEnabled());
     }
 
     @Test
